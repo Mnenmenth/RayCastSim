@@ -1,6 +1,6 @@
 package ui
 
-import scala.swing.BorderPanel
+import scala.swing.FlowPanel
 
 /**
   * Created by Mnenmenth Alkaborin
@@ -8,10 +8,6 @@ import scala.swing.BorderPanel
   * for licensing information
   * https://github.com/Mnenmenth
   */
-class ContentPane extends BorderPanel {
-
-  val renderPane = new RenderPane
-
-  layout(renderPane) = BorderPanel.Position.Center
+class RenderPane extends FlowPanel {
 
 }
