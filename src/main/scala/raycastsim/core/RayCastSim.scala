@@ -1,8 +1,8 @@
-package core
+package raycastsim.core
 
 import java.awt.{Dimension, Toolkit}
 
-import ui.ContentPane
+import raycastsim.ui.ContentPane
 
 import scala.swing.{MainFrame, SimpleSwingApplication}
 
@@ -19,14 +19,12 @@ object RayCastSim extends SimpleSwingApplication {
 
   val windowSize = new Dimension(width, height)
 
-  /*private var _contentPane = new ContentPane
+  private var _contentPane = new ContentPane
   def contentPane = _contentPane
   def contentPane_=(c: ContentPane)={
     _contentPane = c
     top.contents = contentPane
-  }*/
-
-  val contentPane = new ContentPane
+  }
 
   def top = new MainFrame {
     size = windowSize

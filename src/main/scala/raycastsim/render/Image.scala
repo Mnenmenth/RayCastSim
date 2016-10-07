@@ -1,6 +1,4 @@
-package ui
-
-import scala.swing.FlowPanel
+package raycastsim.render
 
 /**
   * Created by Mnenmenth Alkaborin
@@ -8,6 +6,6 @@ import scala.swing.FlowPanel
   * for licensing information
   * https://github.com/Mnenmenth
   */
-class RenderPane extends FlowPanel {
+class Image {
 
 }
