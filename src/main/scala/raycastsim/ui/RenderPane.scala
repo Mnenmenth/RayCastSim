@@ -1,7 +1,7 @@
 package raycastsim.ui
 
 import raycastsim.core.RayCastSim
-import raycastsim.render.CoordSys
+import raycastsim.drawable.CoordSys
 
 import scala.swing._
 

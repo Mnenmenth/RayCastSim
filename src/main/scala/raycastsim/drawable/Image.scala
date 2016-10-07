@@ -1,4 +1,4 @@
-package raycastsim.render
+package raycastsim.drawable
 
 /**
   * Created by Mnenmenth Alkaborin
