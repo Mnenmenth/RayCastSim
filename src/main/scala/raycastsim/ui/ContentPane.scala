@@ -2,7 +2,7 @@ package raycastsim.ui
 
 import raycastsim.core.RayCastSim
 import scala.swing.event.{Key, KeyPressed}
-import scala.swing.{BorderPanel, Graphics2D, Label}
+import scala.swing.BorderPanel
 
 /**
   * Created by Mnenmenth Alkaborin
