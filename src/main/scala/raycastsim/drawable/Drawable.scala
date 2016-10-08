@@ -24,7 +24,7 @@ trait Line extends Drawable {
   var end: Point[Double]
 
   def m = (begin.y - end.y) / (begin.x - end.x)
-  def b = begin.y / (m*begin.x)
+  def b = begin.y - (m*begin.x)
 
   def intersection(line: Line): Point[Double] = {
     val x = (line.b - b) / (m - line.m)
