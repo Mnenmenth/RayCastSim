@@ -22,20 +22,23 @@ object CoordSys {
     val X, Y = Value
   }
   object Axis {
-    def coordToPixel(coord: Double, axis: SingleAxis.Value): Double = {
+    //Y Axis has to be minus rather than double since everything is drawn from top left -> down instead of bottom left -> up
+    //Coordinate to pixel
+    def c2p(coord: Double, axis: SingleAxis.Value): Double = {
       if(axis == SingleAxis.X) {
         (100+coord)*RayCastSim.windowSize.width/200
       } else if(axis == SingleAxis.Y) {
-        (100+coord)*RayCastSim.windowSize.height/200
+        (100-coord)*RayCastSim.windowSize.height/200
       } else {
         0.0
       }
     }
-    def pixelToCoord(coord: Double, axis: SingleAxis.Value): Double = {
+    //Pixel to Coordinate
+    def p2c(coord: Double, axis: SingleAxis.Value): Double = {
       if(axis == SingleAxis.X) {
         (coord*200)/(RayCastSim.windowSize.width-100)
       } else if(axis == SingleAxis.Y) {
-        (coord*200)/(RayCastSim.windowSize.width-100)
+        (coord*200)/(RayCastSim.windowSize.height+100)
       } else {
         0.0
       }
@@ -53,8 +56,10 @@ class CoordSys(windowSize: Dimension) extends Drawable {
 
   val fDiameter = 10
 
-  //val nearFPos = Point[Double](Axis.pixelToCoord((xLength / 2 ) - (xLength / 8), SingleAxis.X), Axis.pixelToCoord((yLength / 2) - fDiameter / 2, SingleAxis.X))
-  val nearFPos = Point[Double]((xLength / 2 ) - (xLength / 8), (yLength / 2) - fDiameter / 2)
+  val nearFPos = Point[Double](
+    CoordSys.Axis.p2c((xLength / 2 ) - (xLength / 8), SingleAxis.X),
+    CoordSys.Axis.p2c((yLength / 2) - fDiameter / 2, SingleAxis.Y)
+  )
   val nearF = new FocalPoint(nearFPos, fDiameter)
 
   val nearF2Pos = Point[Double]((xLength / 2) - ((xLength / 8)*3), (yLength / 2) - fDiameter / 2)
