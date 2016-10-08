@@ -19,12 +19,12 @@ class RenderPane extends Panel {
   val graph = new CoordSys(RayCastSim.windowSize)
 
   val ray1 = new Ray(
-    Point[Double](CoordSys.Axis.c2p(40, SingleAxis.X), CoordSys.Axis.c2p(30, SingleAxis.Y)),
-    Point[Double](CoordSys.Axis.c2p(80, SingleAxis.X), CoordSys.Axis.c2p(60, SingleAxis.Y))
+    Point[Double](40, 30),
+    Point[Double](80, 60)
   )
   val ray2 = new Ray(
-    Point[Double](CoordSys.Axis.c2p(61, SingleAxis.X), CoordSys.Axis.c2p(31, SingleAxis.Y)),
-    Point[Double](CoordSys.Axis.c2p(41, SingleAxis.X), CoordSys.Axis.c2p(81, SingleAxis.Y))
+    Point[Double](61, 31),
+    Point[Double](41, 81)
   )
 
   val circ = new FocalPoint(ray1.intersection(ray2), 20)

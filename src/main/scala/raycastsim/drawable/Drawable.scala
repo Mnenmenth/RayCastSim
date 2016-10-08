@@ -2,6 +2,8 @@ package raycastsim.drawable
 
 import java.awt.geom.{Ellipse2D, Line2D}
 
+import raycastsim.drawable.CoordSys.SingleAxis
+
 import scala.swing.Graphics2D
 
 /**
@@ -25,10 +27,10 @@ trait Line extends Drawable {
   def b = begin.y / (m*begin.x)
 
   def intersection(line: Line): Point[Double] = {
-    Point((line.b - b) / (m  - line.m), begin.y)
+    Point[Double]((line.b - b) / (m  - line.m), begin.y)
   }
 
-  val line = new Line2D.Double(begin.x, begin.y, end.x, end.y)
+  val line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
 
   override def draw(g: Graphics2D): Unit = {
     g.draw(line)
@@ -38,7 +40,7 @@ trait Line extends Drawable {
 trait Circle extends Drawable {
   var pos: Point[Double]
   var diameter: Int
-  val circle = new Ellipse2D.Double(pos.x, pos.y, diameter, diameter)
+  val circle = new Ellipse2D.Double(CoordSys.c2p(pos.x, SingleAxis.X)-(diameter/2), CoordSys.c2p(pos.y, SingleAxis.Y)-(diameter/2), diameter, diameter)
   override def draw(g: Graphics2D) = {
     g.fill(circle)
   }
