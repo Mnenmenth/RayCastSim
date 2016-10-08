@@ -33,7 +33,7 @@ trait Line extends Drawable {
   }
 
   val line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
-  line
+
   override def draw(g: Graphics2D): Unit = {
     g.draw(line)
   }
