@@ -48,8 +48,8 @@ object CoordSys {
 
 class CoordSys(windowSize: Dimension) extends Drawable {
 
-  val yAxis = new Axis(Point[Double](0, -100), Point[Double](0, 200))
-  val xAxis = new Axis(Point[Double](-100, 0), Point[Double](200, 0))
+  val yAxis = new Axis(Point[Double](0, -100), Point[Double](0, 100))
+  val xAxis = new Axis(Point[Double](-100, 0), Point[Double](100, 0))
 
   val fDiameter = 10
 

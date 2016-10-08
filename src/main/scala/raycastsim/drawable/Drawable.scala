@@ -27,11 +27,13 @@ trait Line extends Drawable {
   def b = begin.y / (m*begin.x)
 
   def intersection(line: Line): Point[Double] = {
-    Point[Double]((line.b - b) / (m  - line.m), begin.y)
+    val x = (line.b - b) / (m - line.m)
+    val y = m * x + b
+    Point[Double](x, y)
   }
 
   val line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
-
+  line
   override def draw(g: Graphics2D): Unit = {
     g.draw(line)
   }
