@@ -13,7 +13,7 @@ import scala.swing.Graphics2D
   * https://github.com/Mnenmenth
   */
 
-case class Point[T:Numeric](x: T, y: T)
+case class Point[T:Numeric](var x: T, var y: T)
 
 trait Drawable {
   def draw(g: Graphics2D): Unit = {}
@@ -22,6 +22,7 @@ trait Drawable {
 trait Line extends Drawable {
   var begin: Point[Double]
   var end: Point[Double]
+  var line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
 
   def m = (begin.y - end.y) / (begin.x - end.x)
   def b = begin.y - (m*begin.x)
@@ -32,7 +33,19 @@ trait Line extends Drawable {
     Point[Double](x, y)
   }
 
-  val line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
+  def continue(length: Double, axis: SingleAxis.Value): Unit ={
+    if(axis == SingleAxis.X){
+      end.x = end.x + length
+      end.y = m * (end.x + length) + b
+      line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
+    } else if (axis == SingleAxis.Y){
+      end.y = end.y + length
+      end.x = ((end.y + length) - b) / m
+      line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
+    }
+  }
+
+  def intersects(_line: Line2D): Boolean = line.intersectsLine(_line)
 
   override def draw(g: Graphics2D): Unit = {
     g.draw(line)
