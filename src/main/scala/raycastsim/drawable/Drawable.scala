@@ -46,10 +46,10 @@ trait Line extends Drawable {
     } else if (axis == SingleAxis.Y){
       if (begin.y > end.y) {
         end.y = end.y - length
-        end.x = (-(b / m)) + (end.y / m)
+        end.x = (end.y-b)/m
       } else if (begin.y < end.y) {
         end.y = end.y + length
-        end.x = (-(b / m)) + (end.y / m)
+        end.x = (end.y-b)/m
       }
       line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
     }

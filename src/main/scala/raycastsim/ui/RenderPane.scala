@@ -21,8 +21,8 @@ class RenderPane extends Panel {
     Point[Double](80, 60)
   )
   val ray2 = new Ray.BeginEnd(
-    Point[Double](41, 81),
-    Point[Double](61, 31)
+    Point[Double](61, 31),
+    Point[Double](41, 81)
   )
 
   val ray3 = new Ray.BeginEnd(
@@ -34,7 +34,7 @@ class RenderPane extends Panel {
     Point[Double](-41, 81)
   )
 
-  //ray2.continue(40, SingleAxis.X)
+  ray2.continue(40, SingleAxis.X)
   ray3.continue(40, SingleAxis.X)
   val circ = new FocalPoint(ray1.intersection(ray2), 10)
 
