@@ -33,6 +33,13 @@ object CoordSys {
       0.0
     }
   }
+
+  def c2p(coord: Point[Double]): Point[Double] = {
+    val x = (100+coord.x)*RayCastSim.windowSize.width/200
+    val y = (100-coord.y)*RayCastSim.windowSize.height/200
+    Point[Double](x, y)
+  }
+
   //Pixel to Coordinate
   def p2c(coord: Double, axis: SingleAxis.Value): Double = {
     if(axis == SingleAxis.X) {
@@ -43,6 +50,13 @@ object CoordSys {
       0.0
     }
   }
+
+  def p2c(coord: Point[Double]): Point[Double] = {
+    val x = (coord.x/RayCastSim.windowSize.width)*200-100
+    val y = -1*((coord.y/RayCastSim.windowSize.height)*200-100)
+    Point[Double](x, y)
+  }
+
 }
 
 class CoordSys(windowSize: Dimension) extends Drawable {

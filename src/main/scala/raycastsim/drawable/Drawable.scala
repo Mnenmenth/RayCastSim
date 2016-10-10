@@ -42,7 +42,6 @@ trait Line extends Drawable {
         end.x = end.x + length
         end.y = m * end.x + b
       }
-      line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
     } else if (axis == SingleAxis.Y){
       if (begin.y > end.y) {
         end.y = end.y - length
@@ -51,8 +50,10 @@ trait Line extends Drawable {
         end.y = end.y + length
         end.x = (end.y-b)/m
       }
-      line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
     }
+    val newBegin = CoordSys.c2p(begin)
+    val newEnd = CoordSys.c2p(end)
+    line = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)
   }
 
   def intersects(_line: Line2D): Boolean = line.intersectsLine(_line)
