@@ -1,6 +1,7 @@
 package raycastsim.drawable
 
 import raycastsim.drawable.CoordSys.SingleAxis
+import raycastsim.drawable.Ray.DottedRay.Dots
 
 /**
   * Created by Mnenmenth Alkaborin
@@ -19,6 +20,16 @@ object Ray {
     var end: Point[Double] = through
     if(length == 0) continue(100, axis)
     else continue(length, axis)
+  }
+
+  object DottedRay {
+    object Dots extends Enumeration {
+      val BEGIN, END, BOTH = Value
+    }
+  }
+  //Make the ray continue infinitly in any of the specified directions to the end of the screen
+  class DottedRay(var begin: Point[Double], var end: Point[Double], dots: Dots.Value) extends Line {
+
   }
 
 }
