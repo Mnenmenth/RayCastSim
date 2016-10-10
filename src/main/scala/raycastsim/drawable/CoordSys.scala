@@ -39,7 +39,6 @@ object CoordSys {
       (coord*200)/(RayCastSim.windowSize.width-100)
     } else if(axis == SingleAxis.Y) {
       (coord*200)/(RayCastSim.windowSize.height+100)
-      (coord*200)/(RayCastSim.windowSize.height-100)
     } else {
       0.0
     }
