@@ -34,7 +34,7 @@ class RenderPane extends Panel {
     Point[Double](-41, 81)
   )
 
-  ray2.continue(40, SingleAxis.X)
+  ray1.continue(40, SingleAxis.X)
   ray3.continue(40, SingleAxis.X)
   val circ = new FocalPoint(ray1.intersection(ray2), 10)
 
