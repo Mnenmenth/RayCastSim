@@ -2,7 +2,7 @@ package raycastsim.math
 
 import scala.math._
 /**
-  * Created by Mnenmenth Alkaborin
+  * Created by Creatorri
   * Please refer to LICENSE file if included
   * for licensing information
   * https://github.com/Mnenmenth
