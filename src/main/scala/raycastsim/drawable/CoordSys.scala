@@ -36,9 +36,9 @@ object CoordSys {
   //Pixel to Coordinate
   def p2c(coord: Double, axis: SingleAxis.Value): Double = {
     if(axis == SingleAxis.X) {
-      (coord*200)/(RayCastSim.windowSize.width-100)
+      (coord/RayCastSim.windowSize.width)*200-100
     } else if(axis == SingleAxis.Y) {
-      (coord*200)/(RayCastSim.windowSize.height+100)
+      -1*((coord/RayCastSim.windowSize.height)*200-100)
     } else {
       0.0
     }
