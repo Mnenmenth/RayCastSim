@@ -6,6 +6,16 @@ package raycastsim.drawable
   * for licensing information
   * https://github.com/Mnenmenth
   */
-class Ray(var begin: Point[Double], var end: Point[Double]) extends Line {
+
+object Ray {
+
+  class BeginEnd(var begin: Point[Double], var end: Point[Double]) extends Line {
+
+  }
+
+  class Through(var begin: Point[Double], through: Point[Double], length: Double = 0) extends Line {
+    var end: Point[Double] = through
+    //if(length == 0) continue(0)
+  }
 
 }

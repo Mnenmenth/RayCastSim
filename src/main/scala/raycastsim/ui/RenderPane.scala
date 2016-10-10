@@ -16,25 +16,26 @@ class RenderPane extends Panel {
 
   val graph = new CoordSys(RayCastSim.windowSize)
 
-  val ray1 = new Ray(
+  val ray1 = new Ray.BeginEnd(
     Point[Double](40, 30),
     Point[Double](80, 60)
   )
-  val ray2 = new Ray(
-    Point[Double](61, 31),
-    Point[Double](41, 81)
+  val ray2 = new Ray.BeginEnd(
+    Point[Double](41, 81),
+    Point[Double](61, 31)
   )
 
-  val ray3 = new Ray(
+  val ray3 = new Ray.BeginEnd(
     Point[Double](-40, 30),
     Point[Double](-80, 60)
   )
-  val ray4 = new Ray(
+  val ray4 = new Ray.BeginEnd(
     Point[Double](-61, 31),
     Point[Double](-41, 81)
   )
 
-  ray2.continue(-60, SingleAxis.Y)
+  //ray2.continue(40, SingleAxis.X)
+  ray3.continue(40, SingleAxis.X)
   val circ = new FocalPoint(ray1.intersection(ray2), 10)
 
   override def paint(g: Graphics2D): Unit = {

@@ -34,13 +34,23 @@ trait Line extends Drawable {
   }
 
   def continue(length: Double, axis: SingleAxis.Value): Unit ={
-    if(axis == SingleAxis.X){
-      end.x = end.x + length
-      end.y = m * (end.x + length) + b
+    if(axis == SingleAxis.X) {
+      if (begin.x > end.x) {
+        end.x = end.x - length
+        end.y = m * end.x + b
+      } else if (begin.x < end.x) {
+        end.x = end.x + length
+        end.y = m * end.x + b
+      }
       line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
     } else if (axis == SingleAxis.Y){
-      end.y = end.y + length
-      end.x = ((end.y + length) - b) / m
+      if (begin.y > end.y) {
+        end.y = end.y - length
+        end.x = (-(b / m)) + (end.y / m)
+      } else if (begin.y < end.y) {
+        end.y = end.y + length
+        end.x = (-(b / m)) + (end.y / m)
+      }
       line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
     }
   }
