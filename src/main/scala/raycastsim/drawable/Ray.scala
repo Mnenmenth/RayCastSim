@@ -103,7 +103,7 @@ object Ray {
       dottedLine = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)
     }
 
-    val stroke = new BasicStroke()
+    val stroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, Array(20.0f), 0.0f)
 
     override def draw(g: Graphics2D): Unit = {
       val g2 = g.create().asInstanceOf[Graphics2D]
