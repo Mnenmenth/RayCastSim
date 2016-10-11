@@ -58,7 +58,12 @@ class RenderPane extends Panel {
     Point[Double](41, -81)
   )
 
-  ray1.continue(40, SingleAxis.X)
+  val rayT = new Ray.BeginEnd(
+    Point(0.0,0.0),
+    Point(1.0,1.0)
+  )
+
+  /*ray1.continue(40, SingleAxis.X)
   ray3.continue(40, SingleAxis.X)
   ray5.continue(40, SingleAxis.X)
   ray7.continue(40, SingleAxis.X)
@@ -66,7 +71,9 @@ class RenderPane extends Panel {
   val circ = new FocalPoint(ray1.intersection(ray2), 10)
   val circ1 = new FocalPoint(ray3.intersection(ray4), 10)
   val circ2 = new FocalPoint(ray5.intersection(ray6), 10)
-  val circ3 = new FocalPoint(ray7.intersection(ray8), 10)
+  val circ3 = new FocalPoint(ray7.intersection(ray8), 10)*/
+
+  rayT.extend(-100)
   override def paint(g: Graphics2D): Unit = {
     super.paint(g)
     val mousePos = MouseInfo.getPointerInfo.getLocation
@@ -74,7 +81,8 @@ class RenderPane extends Panel {
     g.drawString(s"Cartesian - X: ${"%.2f".format(CoordSys.p2c(mousePos.x, SingleAxis.X))}, " +
       s"Y: ${"%.2f".format(CoordSys.p2c(mousePos.y, SingleAxis.Y))}", 10, 30)
     graph.draw(g)
-    ray1.draw(g)
+    rayT.draw(g)
+    /*ray1.draw(g)
     ray2.draw(g)
     ray3.draw(g)
     ray4.draw(g)
@@ -85,7 +93,7 @@ class RenderPane extends Panel {
     circ.draw(g)
     circ1.draw(g)
     circ2.draw(g)
-    circ3.draw(g)
+    circ3.draw(g)*/
     repaint()
   }
 
