@@ -71,7 +71,8 @@ class RenderPane extends Panel {
     super.paint(g)
     val mousePos = MouseInfo.getPointerInfo.getLocation
     g.drawString(s"Screen - X: ${mousePos.x}, Y: ${mousePos.y}", 10, 10)
-    g.drawString(s"Cartesian - X: ${CoordSys.p2c(mousePos.x, SingleAxis.X)}, Y: ${CoordSys.p2c(mousePos.y, SingleAxis.Y)}", 10, 30)
+    g.drawString(s"Cartesian - X: ${"%.2f".format(CoordSys.p2c(mousePos.x, SingleAxis.X))}, " +
+      s"Y: ${"%.2f".format(CoordSys.p2c(mousePos.y, SingleAxis.Y))}", 10, 30)
     graph.draw(g)
     ray1.draw(g)
     ray2.draw(g)
