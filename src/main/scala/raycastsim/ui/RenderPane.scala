@@ -62,7 +62,7 @@ class RenderPane extends Panel {
   ray3.continue(40, SingleAxis.X)
   ray5.continue(40, SingleAxis.X)
   ray7.continue(40, SingleAxis.X)
-  ray7.continueDotted(SingleAxis.X, 10)
+  ray7.continueDotted(SingleAxis.X, 40)
   val circ = new FocalPoint(ray1.intersection(ray2), 10)
   val circ1 = new FocalPoint(ray3.intersection(ray4), 10)
   val circ2 = new FocalPoint(ray5.intersection(ray6), 10)
