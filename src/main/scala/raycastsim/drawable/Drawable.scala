@@ -33,7 +33,9 @@ trait Line extends Drawable {
     Point[Double](x, y)
   }
 
-  def continue(length: Double, axis: SingleAxis.Value): Unit ={
+  def continue(length: Double, axis: SingleAxis.Value): Unit = {
+    val m = this.m
+    val b = this.b
     if(axis == SingleAxis.X) {
       if (begin.x > end.x) {
         end.x = end.x - length

@@ -39,7 +39,9 @@ object Ray {
     var dottedEnd = end
     var dottedLine = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
 
-    def continueDotted(axis: SingleAxis.Value, length: Double = 100.0): Unit = {
+    def continueDotted(axis: SingleAxis.Value, length: Double = 150.0): Unit = {
+      val m = this.m
+      val b = this.b
       if(axis == SingleAxis.X) {
         if (begin.x > end.x) {
           if(dotLoc == DotLoc.BEGIN) {
