@@ -8,7 +8,14 @@ import scala.math._
   * https://github.com/Creatorri
   */
 object Math {
-  case class Point[T:Numeric](var x: T, var y: T)
+  case class Point[T](var x: T, var y: T)(implicit numT:Numeric[T]){
+    def +(p:Point[T]): Point[T] ={
+      Point(numT.plus(x,p.x),numT.plus(y,p.y))
+    }
+    def -(p:Point[T]): Point[T]={
+      Point(numT.minus(x,p.x),numT.minus(y,p.y))
+    }
+  }
 
   def converg(pos:(Double, Double), f:Double):Point[Double]={
     //gets the focal point on the side of the source

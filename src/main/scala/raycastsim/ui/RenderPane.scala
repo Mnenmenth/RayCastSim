@@ -64,14 +64,14 @@ class RenderPane extends Panel {
     Point[Double](80, -60),
     DotLoc.BOTH
   )
-  rayT.extend(10)
-  //rayT.extendDotted(10)
+  //rayT.extend(30)
+  rayT.extendDotted(1000)
 
   ray1.extendAlong(SingleAxis.X, 40)
   ray3.extendAlong(SingleAxis.X, 40)
   ray5.extendAlong(SingleAxis.X, 40)
-  ray7.extendAlong(SingleAxis.X, 40)
-  ray7.extendDotted(10)
+  //ray7.extendAlong(SingleAxis.X, 40)
+  //ray7.extendDotted(10)
   val circ = new FocalPoint(ray1.intersection(ray2), 10)
   val circ1 = new FocalPoint(ray3.intersection(ray4), 10)
   val circ2 = new FocalPoint(ray5.intersection(ray6), 10)
@@ -85,6 +85,7 @@ class RenderPane extends Panel {
       s"Y: ${"%.2f".format(CoordSys.p2c(mousePos.y, SingleAxis.Y))}", 10, 30)
     graph.draw(g)
     rayT.draw(g)
+    ray7.draw(g)
     /*ray1.draw(g)
     ray2.draw(g)
     ray3.draw(g)

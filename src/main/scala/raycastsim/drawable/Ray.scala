@@ -104,47 +104,14 @@ object Ray {
       dottedLine = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)
     }
 
-    def extendDotted(length: Double): Unit = {
-      val l = if(dotLoc == DotLoc.END) -math.abs(length) else math.abs(length)
-
-      val m = this.m
-      val b0 = this.b
-
-      var x = begin.x
-      var y = begin.y
-      if (l > 0) {
-        x = end.x
-        y = end.y
-      }
-
-      def getExtends(x:Double,y:Double,l:Double): (Point[Double],Point[Double]) ={
-        import scala.math._
-        val x1 = (sqrt(4*(m*m+1)*(-pow(y-b,2)+l*l-x*x)+pow(2*m*(y-b)+2*x,2))+2*m*(y-b)+2*x)/(2*m*m+2)
-        val x2 = (-sqrt(4*(m*m+1)*(-pow(y-b,2)+l*l-x*x)+pow(2*m*(y-b)+2*x,2))+2*m*(y-b)+2*x)/(2*m*m+2)
-
-        val y1 = m*x1+b0
-        val y2 = m*x2+b0
-
-        (Point(x1,y1),
-        Point(x2,y2))
-      }
-
+    def extendDotted(l: Double): Unit = {
+      val dx = math.sqrt((l*l)/(m*m+1))
+      val dy = m*dx
+      val p = Point(dx,dy)
       import CoordSys.c2p
-      import math._
-      val ps = getExtends(x,y,l)
-      if(dotLoc==DotLoc.BOTH){
-        val cp1 = c2p(getExtends(begin.x,begin.y,-abs(length))._1)
-        val cp2 = c2p(getExtends(end.x,end.y,abs(length))._2)
-        dottedLine = new Line2D.Double(cp1.x,cp1.y,cp2.x,cp2.y)
-      }else if(l>0){
-        val begin1 = c2p(begin)
-        val cp = c2p(ps._1)
-        dottedLine = new Line2D.Double(begin1.x,begin1.y,cp.x,cp.y)
-      }else{
-        val end1 = c2p(end)
-        val cp = c2p(ps._2)
-        dottedLine = new Line2D.Double(cp.x,cp.y,end1.x,end1.y)
-      }
+      val begin1 = c2p(if(dotLoc==DotLoc.END) begin else begin - p)
+      val end1 = c2p(if(dotLoc!=DotLoc.BEGIN) p + end else end)
+      dottedLine = new Line2D.Double(begin1.x,begin1.y,end1.x,end1.y)
     }
 
     val stroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, Array(20.0f), 0.0f)
