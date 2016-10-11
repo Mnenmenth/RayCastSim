@@ -5,10 +5,12 @@ import scala.math._
   * Created by Creatorri
   * Please refer to LICENSE file if included
   * for licensing information
-  * https://github.com/Mnenmenth
+  * https://github.com/Creatorri
   */
 object Math {
-  def converg(pos:(Double, Double), f:Double):(Double,Double)={
+  case class Point[T:Numeric](var x: T, var y: T)
+
+  def converg(pos:(Double, Double), f:Double):Point[Double]={
     //gets the focal point on the side of the source
     val g = f * pos._1 / abs(pos._1)
     //sets the position to nice values
@@ -18,18 +20,19 @@ object Math {
     val x = g*l/(g-l)
     val y = (h/l)*x
     //returns point
-    (x,y)
+    Point(x,y)
   }
-  def diverg(pos:(Double,Double), f:Double):(Double,Double)={
+
+  def diverg(pos:Point[Double], f:Double):Point[Double]={
     //gets the focal point on the side of the source
-    val g = f * pos._1 / abs(pos._1)
+    val g = f * pos.x / abs(pos.y)
     //sets the position to nice values
-    val l = pos._1
-    val h = pos._2
+    val l = pos.x
+    val h = pos.y
     //finds point
     val x = g*l/(h*(l-f))
     val y = (h/l)*x
     //returns point
-    (x,y)
+    Point(x,y)
   }
 }

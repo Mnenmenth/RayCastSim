@@ -5,7 +5,8 @@ import java.awt.MouseInfo
 import raycastsim.core.RayCastSim
 import raycastsim.drawable.CoordSys.{FocalPoint, SingleAxis}
 import raycastsim.drawable.Ray.DottedRay.DotLoc
-import raycastsim.drawable.{CoordSys, Point, Ray}
+import raycastsim.drawable.{CoordSys, Ray}
+import raycastsim.math.Math.Point
 
 import scala.swing.{Graphics2D, Panel}
 
@@ -58,22 +59,24 @@ class RenderPane extends Panel {
     Point[Double](41, -81)
   )
 
-  val rayT = new Ray.BeginEnd(
-    Point(0.0,0.0),
-    Point(1.0,1.0)
+  val rayT = new Ray.DottedRay(
+    Point[Double](30, -30),
+    Point[Double](80, -60),
+    DotLoc.BOTH
   )
+  rayT.extend(10)
+  //rayT.extendDotted(10)
 
-  /*ray1.continue(40, SingleAxis.X)
-  ray3.continue(40, SingleAxis.X)
-  ray5.continue(40, SingleAxis.X)
-  ray7.continue(40, SingleAxis.X)
-  ray7.continueDotted(SingleAxis.X, 40)
+  ray1.extendAlong(SingleAxis.X, 40)
+  ray3.extendAlong(SingleAxis.X, 40)
+  ray5.extendAlong(SingleAxis.X, 40)
+  ray7.extendAlong(SingleAxis.X, 40)
+  ray7.extendDotted(10)
   val circ = new FocalPoint(ray1.intersection(ray2), 10)
   val circ1 = new FocalPoint(ray3.intersection(ray4), 10)
   val circ2 = new FocalPoint(ray5.intersection(ray6), 10)
-  val circ3 = new FocalPoint(ray7.intersection(ray8), 10)*/
+  val circ3 = new FocalPoint(ray7.intersection(ray8), 10)
 
-  rayT.extend(-100)
   override def paint(g: Graphics2D): Unit = {
     super.paint(g)
     val mousePos = MouseInfo.getPointerInfo.getLocation

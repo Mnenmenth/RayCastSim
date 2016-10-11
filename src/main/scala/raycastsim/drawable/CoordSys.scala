@@ -3,8 +3,8 @@ package raycastsim.drawable
 import java.awt.Dimension
 
 import raycastsim.core.RayCastSim
-import raycastsim.drawable.CoordSys.{Axis, FocalPoint, SingleAxis}
-
+import raycastsim.drawable.CoordSys.{Axis, FocalPoint}
+import raycastsim.math.Math._
 import scala.swing.Graphics2D
 
 /**

@@ -3,7 +3,7 @@ package raycastsim.drawable
 import java.awt.geom.{Ellipse2D, Line2D}
 
 import raycastsim.drawable.CoordSys.SingleAxis
-
+import raycastsim.math.Math._
 import scala.swing.Graphics2D
 
 /**
@@ -12,8 +12,6 @@ import scala.swing.Graphics2D
   * for licensing information
   * https://github.com/Mnenmenth
   */
-
-case class Point[T:Numeric](var x: T, var y: T)
 
 trait Drawable {
   def draw(g: Graphics2D): Unit = {}
@@ -86,15 +84,12 @@ trait Line extends Drawable {
       y = end.y
     }
 
-    val a = m*m+1
-    val b = -(m*y+x+b0*m)
-    val c = b0*b0-b0*y+x*x+y*y-l*l
+    import scala.math._
+    val x1 = (sqrt(4*(m*m+1)*(-pow(y-b,2)+l*l-x*x)+pow(2*m*(y-b)+2*x,2))+2*m*(y-b)+2*x)/(2*m*m+2)
+    val x2 = (-sqrt(4*(m*m+1)*(-pow(y-b,2)+l*l-x*x)+pow(2*m*(y-b)+2*x,2))+2*m*(y-b)+2*x)/(2*m*m+2)
 
-    val x1 = (b+math.sqrt(b*b-4*a*c))/(2*a)
-    val x2 = (b-math.sqrt(b*b-4*a*c))/(2*a)
-
-    val y1 = m*x1+b
-    val y2 = m*x2+b
+    val y1 = m*x1+b0
+    val y2 = m*x2+b0
 
     val p1 = Point(x1,y1)
     val p2 = Point(x2,y2)
