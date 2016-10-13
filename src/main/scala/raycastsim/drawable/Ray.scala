@@ -15,14 +15,16 @@ import scala.swing.Graphics2D
   * https://github.com/Mnenmenth
   */
 
+abstract class Ray(var begin: Point[Double], var end: Point[Double]) extends Line
+
 object Ray {
 
-  class BeginEnd(var begin: Point[Double], var end: Point[Double]) extends Line {
+  class BeginEnd(override var begin: Point[Double], override var end: Point[Double]) extends Ray(begin, end) {
 
   }
 
-  class Through(var begin: Point[Double], through: Point[Double], axis: SingleAxis.Value, length: Double = 0) extends Line {
-    var end: Point[Double] = through
+  class Through(override var begin: Point[Double], through: Point[Double], axis: SingleAxis.Value, length: Double = 0) extends Ray(begin, through) {
+    override var end: Point[Double] = through
     if(length == 0) extendAlong(axis, 100)
     else extendAlong(axis, length)
   }
@@ -33,7 +35,7 @@ object Ray {
     }
   }
   //Make the ray extendAlong infinitly in any of the specified directions to the end of the screen
-  class DottedRay(var begin: Point[Double], var end: Point[Double], dotLoc: DotLoc.Value) extends Line {
+  class DottedRay(override var begin: Point[Double], override var end: Point[Double], dotLoc: DotLoc.Value) extends Ray(begin, end) {
 
     var dottedBegin = begin
     var dottedEnd = end
@@ -104,7 +106,7 @@ object Ray {
       dottedLine = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)
     }
 
-    def extendDotted(l: Double): Unit = {
+    def extendDotted(l: Double = 150.0): Unit = {
       val dx = math.sqrt((l*l)/(m*m+1))
       val dy = m*dx
       val p = Point(dx,dy)
