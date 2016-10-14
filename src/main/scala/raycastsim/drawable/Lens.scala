@@ -13,6 +13,9 @@ object Lens {
   }
 }
 
+/**
+  * Drawable lens
+  */
 class Lens extends Drawable {
 
 }

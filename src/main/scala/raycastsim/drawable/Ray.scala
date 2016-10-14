@@ -14,19 +14,34 @@ import scala.swing.Graphics2D
   * for licensing information
   * https://github.com/Mnenmenth
   */
-
+/**
+  * Standard ray
+  * @param begin Beginning point of line
+  * @param end Ending point of line
+  */
 abstract class Ray(var begin: Point[Double], var end: Point[Double]) extends Line
 
 object Ray {
 
+  /**
+    *
+    * @param begin Beginning point of line
+    * @param end Ending point of line
+    */
   class BeginEnd(override var begin: Point[Double], override var end: Point[Double]) extends Ray(begin, end) {
 
   }
 
-  class Through(override var begin: Point[Double], through: Point[Double], axis: SingleAxis.Value, length: Double = 0) extends Ray(begin, through) {
+  /**
+    * Line extended through point
+    * @param begin Beginning point of line
+    * @param through Point ot continue through
+    * @param length Length to extend along axis
+    */
+  class Through(override var begin: Point[Double], through: Point[Double], length: Double = 0) extends Ray(begin, through) {
     override var end: Point[Double] = through
-    if(length == 0) extendAlong(axis, 100)
-    else extendAlong(axis, length)
+    if(length == 0) extend()
+    else extend(length)
   }
 
   object DottedRay {
@@ -35,12 +50,24 @@ object Ray {
     }
   }
   //Make the ray extendAlong infinitly in any of the specified directions to the end of the screen
+  /**
+    * Normal ray that extends another dotted line
+    * @param begin Beginning point of line
+    * @param end Ending point of line
+    * @param dotLoc Direction to continue dotted line
+    *               From the beginning, end, or both ways
+    */
   class DottedRay(override var begin: Point[Double], override var end: Point[Double], dotLoc: DotLoc.Value) extends Ray(begin, end) {
 
     var dottedBegin = begin
     var dottedEnd = end
     var dottedLine = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
 
+    /**
+      * Extended dotted line along axis of distance length
+      * @param axis Axis to extend along
+      * @param length Length to extend along axis
+      */
     def extendAlongDotted(axis: SingleAxis.Value, length: Double = 150.0): Unit = {
       val m = this.m
       val b = this.b
@@ -106,6 +133,10 @@ object Ray {
       dottedLine = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)
     }
 
+    /**
+      * Extend dotted line
+      * @param l Length to extend
+      */
     def extendDotted(l: Double = 150.0): Unit = {
       val dx = math.sqrt((l*l)/(m*m+1))
       val dy = m*dx

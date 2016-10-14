@@ -13,10 +13,16 @@ import scala.swing.Graphics2D
   * https://github.com/Mnenmenth
   */
 
+/**
+  * Drawable generic
+  */
 trait Drawable {
   def draw(g: Graphics2D): Unit = {}
 }
 
+/**
+  * Line generic
+  */
 trait Line extends Drawable {
   var begin: Point[Double]
   var end: Point[Double]
@@ -25,13 +31,24 @@ trait Line extends Drawable {
   def m = (begin.y - end.y) / (begin.x - end.x)
   def b = begin.y - (m*begin.x)
 
+  /**
+    * Calculates point of intersection between two lines
+    * @param line Line to intersect with
+    * @return Point of intersection
+    */
   def intersection(line: Line): Point[Double] = {
     val x = (line.b - b) / (m - line.m)
     val y = m * x + b
     Point[Double](x, y)
   }
 
-  def extendAlong(axis: SingleAxis.Value, length: Double): Unit = {
+  /**
+    * Extend the line along a specific axis
+    * @param axis The axis in which length is added
+    *             @example add 1 to x
+    * @param length Length to add to axis
+   */
+  def extendAlong(axis: SingleAxis.Value, length: Double = 150.0): Unit = {
     val m = this.m
     val b = this.b
     var end1 = Point(0.0,0.0)
@@ -68,7 +85,7 @@ trait Line extends Drawable {
     *
     * @param l the length to be added; l != 0, if it does, the universe will implode.
     */
-  def extend(l: Double): Unit = {
+  def extend(l: Double = 150.0): Unit = {
     val dx = math.sqrt((l*l)/(m*m+1))
     val dy = m*dx
     val p = Point(dx,dy)
@@ -78,6 +95,11 @@ trait Line extends Drawable {
     line = new Line2D.Double(begin1.x,begin1.y,end1.x,end1.y)
   }
 
+  /**
+    * Does line intersect with given line
+    * @param _line Line to test intersection with
+    * @return Boolean intersection
+    */
   def intersects(_line: Line2D): Boolean = line.intersectsLine(_line)
 
   override def draw(g: Graphics2D): Unit = {
@@ -85,6 +107,9 @@ trait Line extends Drawable {
   }
 }
 
+/**
+  * Circle generic
+  */
 trait Circle extends Drawable {
   var pos: Point[Double]
   var diameter: Int

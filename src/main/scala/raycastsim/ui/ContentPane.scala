@@ -10,6 +10,10 @@ import scala.swing.BorderPanel
   * for licensing information
   * https://github.com/Mnenmenth
   */
+
+/**
+  * Root pane for contents
+  */
 class ContentPane extends BorderPanel {
   val renderPane = new RenderPane
   layout(renderPane) = BorderPanel.Position.Center

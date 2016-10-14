@@ -16,6 +16,9 @@ import scala.swing.{Graphics2D, Panel}
   * for licensing information
   * https://github.com/Mnenmenth
   */
+/**
+  * Panel containing all draw commands
+  */
 class RenderPane extends Panel {
 
   val graph = new CoordSys(RayCastSim.windowSize)

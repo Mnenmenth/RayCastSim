@@ -8,6 +8,14 @@ import scala.math._
   * https://github.com/Creatorri
   */
 object Math {
+
+  /**
+    * Point
+    * @param x X Coordinate
+    * @param y Y Coordinate
+    * @param numT Implicit numeric type
+    * @tparam T Implicit numeric type
+    */
   case class Point[T](var x: T, var y: T)(implicit numT:Numeric[T]){
     def +(p:Point[T]): Point[T] ={
       Point(numT.plus(x,p.x),numT.plus(y,p.y))
@@ -17,12 +25,18 @@ object Math {
     }
   }
 
-  def converg(pos:(Double, Double), f:Double):Point[Double]={
+  /**
+    * Calculates point of ray intersection through converging lens
+    * @param pos Origin point
+    * @param f Focal length
+    * @return Point of intersection
+    */
+  def converg(pos:Point[Double], f:Double):Point[Double]={
     //gets the focal point on the side of the source
-    val g = f * pos._1 / abs(pos._1)
+    val g = f * pos.x / abs(pos.x)
     //sets the position to nice values
-    val l = pos._1
-    val h = pos._2
+    val l = pos.y
+    val h = pos.y
     //finds point
     val x = g*l/(g-l)
     val y = (h/l)*x
@@ -30,6 +44,12 @@ object Math {
     Point(x,y)
   }
 
+  /**
+    * Calculates point of ray intersection through diverging lens
+    * @param pos Origin point
+    * @param f Focal length
+    * @return Point of intersection
+    */
   def diverg(pos:Point[Double], f:Double):Point[Double]={
     //gets the focal point on the side of the source
     val g = f * pos.x / abs(pos.y)

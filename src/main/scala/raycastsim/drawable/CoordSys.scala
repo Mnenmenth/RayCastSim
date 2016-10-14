@@ -15,7 +15,19 @@ import scala.swing.Graphics2D
   */
 
 object CoordSys {
+
+  /**
+    * Drawable focal point on graph
+    * @param pos Position to draw focal point
+    * @param diameter Diameter of circle
+    */
   class FocalPoint(var pos: Point[Double], var diameter: Int) extends Circle
+
+  /**
+    * Drawable axis for graph
+    * @param begin Beginning point of line
+    * @param end Ending point of line
+    */
   class Axis(var begin: Point[Double], var end: Point[Double]) extends Line
 
   object SingleAxis extends Enumeration {
@@ -24,23 +36,39 @@ object CoordSys {
 
   //Y Axis has to be minus rather than double since everything is drawn from top left -> down instead of bottom left -> up
   //Coordinate to pixel
-  def c2p(coord: Double, axis: SingleAxis.Value): Double = {
+  /**
+    * Convert coordinate (-100 to 100) to pixel on screen
+    * @param coord Coordinate to convert
+    * @param axis Axis coordinate lies on (X or Y)
+    * @return Pixel
+    */
+  def c2p(coord: Double, axis: SingleAxis.Value): Int = {
     if(axis == SingleAxis.X) {
-      (100+coord)*RayCastSim.windowSize.width/200
+      ((100+coord)*RayCastSim.windowSize.width/200).toInt
     } else if(axis == SingleAxis.Y) {
-      (100-coord)*RayCastSim.windowSize.height/200
+      ((100-coord)*RayCastSim.windowSize.height/200).toInt
     } else {
-      0.0
+      0
     }
   }
 
-  def c2p(coord: Point[Double]): Point[Double] = {
+  /**
+    * Coordinate Point to Pixel Point
+    * @param coord Coordinate to convert
+    * @return Pixel Point
+    */
+  def c2p(coord: Point[Double]): Point[Int] = {
     val x = (100+coord.x)*RayCastSim.windowSize.width/200
     val y = (100-coord.y)*RayCastSim.windowSize.height/200
-    Point[Double](x, y)
+    Point(x.toInt, y.toInt)
   }
 
-  //Pixel to Coordinate
+  /**
+    * Pixel to Coordinate
+    * @param coord Pixel to convert
+    * @param axis Axis pixel lies on
+    * @return Coordinate
+    */
   def p2c(coord: Double, axis: SingleAxis.Value): Double = {
     if(axis == SingleAxis.X) {
       (coord/RayCastSim.windowSize.width)*200-100
@@ -51,14 +79,23 @@ object CoordSys {
     }
   }
 
-  def p2c(coord: Point[Double]): Point[Double] = {
-    val x = (coord.x/RayCastSim.windowSize.width)*200-100
-    val y = -1*((coord.y/RayCastSim.windowSize.height)*200-100)
+  /**
+    * Pixel Point to Coordinate Point
+    * @param pixel Pixel point to convert to coordinate point
+    * @return Coordinate point
+    */
+  def p2c(pixel: Point[Double]): Point[Double] = {
+    val x = (pixel.x/RayCastSim.windowSize.width)*200-100
+    val y = -1*((pixel.y/RayCastSim.windowSize.height)*200-100)
     Point[Double](x, y)
   }
 
 }
 
+/**
+  * Drawable cartesian coordinate system
+  * @param windowSize Size of host window
+  */
 class CoordSys(windowSize: Dimension) extends Drawable {
 
   val yAxis = new Axis(Point[Double](0, -100), Point[Double](0, 100))
