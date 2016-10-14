@@ -14,8 +14,9 @@ import scala.swing.Graphics2D
   * for licensing information
   * https://github.com/Mnenmenth
   */
-/**
-  * Standard ray
+/** Standard Ray
+  *
+  * @constructor Beginning and Ending points of line
   * @param begin Beginning point of line
   * @param end Ending point of line
   */
@@ -23,8 +24,9 @@ abstract class Ray(var begin: Point[Double], var end: Point[Double]) extends Lin
 
 object Ray {
 
-  /**
+  /** Ray constructed using two points
     *
+    * @constructor Beginning and Ending points of line
     * @param begin Beginning point of line
     * @param end Ending point of line
     */
@@ -32,8 +34,9 @@ object Ray {
 
   }
 
-  /**
-    * Line extended through point
+  /** Ray extended through point
+    *
+    * @constructor Beginning point and point to extend through with distance
     * @param begin Beginning point of line
     * @param through Point ot continue through
     * @param length Length to extend along axis
@@ -49,9 +52,9 @@ object Ray {
       val BEGIN, END, BOTH = Value
     }
   }
-  //Make the ray extendAlong infinitly in any of the specified directions to the end of the screen
-  /**
-    * Normal ray that extends another dotted line
+  /** Ray constructed of two point that extends another dotted line
+    *
+    * @constructor Beginning and ending point and direction of dotted line
     * @param begin Beginning point of line
     * @param end Ending point of line
     * @param dotLoc Direction to continue dotted line
@@ -63,8 +66,8 @@ object Ray {
     var dottedEnd = end
     var dottedLine = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
 
-    /**
-      * Extended dotted line along axis of distance length
+    /** Extended dotted line along axis of distance length
+      *
       * @param axis Axis to extend along
       * @param length Length to extend along axis
       */
