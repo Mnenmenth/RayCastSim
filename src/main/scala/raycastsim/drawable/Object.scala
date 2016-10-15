@@ -22,12 +22,12 @@ import scala.swing.Graphics2D
   * @param _lensType Type of lens
   */
 
-class Object(image: BufferedImage, private var _lensType: Lens.Type.Value) extends Drawable {
-
-  private var _top = Point(-50.0, CoordSys.p2c(image.getHeight, SingleAxis.Y))
+class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.Type.Value) extends Drawable {
+  private val height = CoordSys.p2c(image.getHeight, SingleAxis.Y)
+  private var _top = Point(-50.0, height)
   def top = _top
   def top_=(x: Double):Unit={
-    _top = Point(x, CoordSys.p2c(image.getHeight, SingleAxis.Y))
+    _top = Point(x, height)
     pos = x
   }
 
@@ -71,17 +71,15 @@ class Object(image: BufferedImage, private var _lensType: Lens.Type.Value) exten
     }
   }
 
-  def calculateRefraction(lens: Lens.Type.Value): Unit ={
+  def calculateRefraction(): Unit ={
 
-    if (lens == Lens.Type.CONVERGING) {
-      ray1Before.begin = Point(pos.x, pos.y)
-      ray1Before.end = Point(0.0, pos.y)
-      ray1After.begin = Point(0.0, pos.y)
-      import raycastsim.core.RayCastSim.contentPane
-      val graph = contentPane.renderPane.graph
+    if (lensType == Lens.Type.CONVERGING) {
+      ray1Before.begin = Point(top.x, top.y)
+      ray1Before.end = Point(0.0, top.y)
+      ray1After.begin = Point(0.0, top.y)
       ray1After.end = Point(graph.farF.pos.x, graph.farF.pos.y)
-      ray1After.extend()
-    } else if (lens == Lens.Type.DIVERGING) {
+      //ray1After.extend()
+    } else if (lensType == Lens.Type.DIVERGING) {
 
     }
 

@@ -78,7 +78,8 @@ object Ray {
     *               From the beginning, end, or both ways
     */
   class DottedRay(beginPoint: Point[Double], endPoint: Point[Double], dotLoc: DotLoc.Value) extends Ray(beginPoint, endPoint) {
-
+    begin = beginPoint
+    end = endPoint
     var dottedBegin = begin
     var dottedEnd = end
     var dottedLine = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))

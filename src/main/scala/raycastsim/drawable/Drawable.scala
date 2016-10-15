@@ -28,12 +28,18 @@ trait Line extends Drawable {
   def begin = _begin
   def begin_=(p: Point[Double])={
     _begin = p
+    val beginConv = CoordSys.c2p(begin)
+    val endConv = CoordSys.c2p(end)
+    line = new Line2D.Double(beginConv.x, beginConv.y, endConv.x, endConv.y)
   }
 
   private var _end: Point[Double] = Point(0.0, 0.0)
   def end = _end
   def end_=(p: Point[Double])={
     _end = p
+    val beginConv = CoordSys.c2p(begin)
+    val endConv = CoordSys.c2p(end)
+    line = new Line2D.Double(beginConv.x, beginConv.y, endConv.x, endConv.y)
   }
 
   var line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))

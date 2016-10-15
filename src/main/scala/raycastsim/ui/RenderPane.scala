@@ -83,7 +83,8 @@ class RenderPane extends Panel {
   val circ3 = new FocalPoint(ray7.intersection(ray8), 10)
 
   val img = ImageIO.read(getClass.getClassLoader.getResourceAsStream("object.png"))
-  val origin = new Object(img, Lens.Type.CONVERGING)
+  val origin = new Object(img, graph, Lens.Type.CONVERGING)
+  origin.calculateRefraction()
 
   override def paint(g: Graphics2D): Unit = {
     super.paint(g)
@@ -94,7 +95,7 @@ class RenderPane extends Panel {
     graph.draw(g)
     rayT.draw(g)
     ray7.draw(g)
-    //origin.draw(g)
+    origin.draw(g)
     /*ray1.draw(g)
     ray2.draw(g)
     ray3.draw(g)
