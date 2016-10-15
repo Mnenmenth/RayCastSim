@@ -32,8 +32,8 @@ abstract class Ray(beginPoint: Point[Double], endPoint: Point[Double]) extends L
   private var _end: Point[Double] = endPoint
   override def end_=(p: Point[Double])={
     _end = p
-    val beginConv = CoordSys.c2p(p)
-    val endConv = CoordSys.c2p(end)
+    val beginConv = CoordSys.c2p(begin)
+    val endConv = CoordSys.c2p(p)
     line.setLine(beginConv.x, beginConv.y, endConv.x, endConv.y)
   }
 
@@ -48,7 +48,7 @@ object Ray {
     * @param endPoint point of line
     */
   class BeginEnd(beginPoint: Point[Double], endPoint: Point[Double]) extends Ray(beginPoint, endPoint) {
-
+    println(begin)
   }
 
   /** Ray extended through point
@@ -78,8 +78,6 @@ object Ray {
     *               From the beginning, end, or both ways
     */
   class DottedRay(beginPoint: Point[Double], endPoint: Point[Double], dotLoc: DotLoc.Value) extends Ray(beginPoint, endPoint) {
-    begin = beginPoint
-    end = endPoint
     var dottedBegin = begin
     var dottedEnd = end
     var dottedLine = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))

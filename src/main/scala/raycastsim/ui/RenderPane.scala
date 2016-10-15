@@ -93,8 +93,8 @@ class RenderPane extends Panel {
     g.drawString(s"Cartesian - X: ${"%.2f".format(CoordSys.p2c(mousePos.x, SingleAxis.X))}, " +
       s"Y: ${"%.2f".format(CoordSys.p2c(mousePos.y, SingleAxis.Y))}", 10, 30)
     graph.draw(g)
-    rayT.draw(g)
-    ray7.draw(g)
+    //rayT.draw(g)
+    //ray7.draw(g)
     origin.draw(g)
     /*ray1.draw(g)
     ray2.draw(g)

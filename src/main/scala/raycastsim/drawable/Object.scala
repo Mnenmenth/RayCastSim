@@ -28,14 +28,14 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
   def top = _top
   def top_=(x: Double):Unit={
     _top = Point(x, height)
-    pos = x
+    _pos = Point(x, _pos.y)
   }
 
   private var _pos = Point(-50.0, 0.0)
   def pos = _pos
   def pos_=(x: Double):Unit={
     _pos = Point(x, 0.0)
-    top = x
+    _top = Point(x, _top.y)
   }
 
   //val refraction = new Object(image, _lensType)
@@ -52,7 +52,7 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
   val rays = List(ray1Before, ray1After, ray2Before, ray2After, ray3Before, ray3After)
 
   def lensType = _lensType
-  def lensType_(l: Lens.Type.Value):Unit={
+  def lensType_=(l: Lens.Type.Value):Unit={
     _lensType = l
     if (lensType == Lens.Type.CONVERGING) {
       ray1Before = new Ray.BeginEnd(Point(0.0,0.0), Point(0.0,0.0))
@@ -71,12 +71,18 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
     }
   }
 
+  lensType = _lensType
+
   def calculateRefraction(): Unit ={
 
     if (lensType == Lens.Type.CONVERGING) {
-      ray1Before.begin = Point(top.x, top.y)
+      /*ray1Before.begin = Point(top.x, top.y)
       ray1Before.end = Point(0.0, top.y)
       ray1After.begin = Point(0.0, top.y)
+      ray1After.end = Point(graph.farF.pos.x, graph.farF.pos.y)*/
+      ray1Before.begin = Point(-50.0, 20.0)
+      ray1Before.end = Point(0.0, 20.0)
+      ray1After.begin = Point(0.0, 20.0)
       ray1After.end = Point(graph.farF.pos.x, graph.farF.pos.y)
       //ray1After.extend()
     } else if (lensType == Lens.Type.DIVERGING) {
