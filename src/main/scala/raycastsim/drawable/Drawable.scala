@@ -24,8 +24,18 @@ trait Drawable {
   * Line generic
   */
 trait Line extends Drawable {
-  var begin: Point[Double]
-  var end: Point[Double]
+  private var _begin: Point[Double] = Point(0.0, 0.0)
+  def begin = _begin
+  def begin_=(p: Point[Double])={
+    _begin = p
+  }
+
+  private var _end: Point[Double] = Point(0.0, 0.0)
+  def end = _end
+  def end_=(p: Point[Double])={
+    _end = p
+  }
+
   var line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
 
   def m = (begin.y - end.y) / (begin.x - end.x)

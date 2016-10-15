@@ -17,32 +17,49 @@ import scala.swing.Graphics2D
 /** Standard Ray
   *
   * @constructor Beginning and Ending points of line
-  * @param begin Beginning point of line
-  * @param end Ending point of line
+  * @param beginPoint Beginning point of line
+  * @param endPoint Ending point of line
   */
-abstract class Ray(var begin: Point[Double], var end: Point[Double]) extends Line
+abstract class Ray(beginPoint: Point[Double], endPoint: Point[Double]) extends Line {
+  private var _begin: Point[Double] = beginPoint
+  override def begin_=(p: Point[Double])={
+    _begin = p
+    val beginConv = CoordSys.c2p(p)
+    val endConv = CoordSys.c2p(end)
+    line.setLine(beginConv.x, beginConv.y, endConv.x, endConv.y)
+  }
+
+  private var _end: Point[Double] = endPoint
+  override def end_=(p: Point[Double])={
+    _end = p
+    val beginConv = CoordSys.c2p(p)
+    val endConv = CoordSys.c2p(end)
+    line.setLine(beginConv.x, beginConv.y, endConv.x, endConv.y)
+  }
+
+}
 
 object Ray {
 
   /** Ray constructed using two points
     *
     * @constructor Beginning and Ending points of line
-    * @param begin Beginning point of line
-    * @param end Ending point of line
+    * @param beginPoint Beginning point of line
+    * @param endPoint point of line
     */
-  class BeginEnd(override var begin: Point[Double], override var end: Point[Double]) extends Ray(begin, end) {
+  class BeginEnd(beginPoint: Point[Double], endPoint: Point[Double]) extends Ray(beginPoint, endPoint) {
 
   }
 
   /** Ray extended through point
     *
     * @constructor Beginning point and point to extend through with distance
-    * @param begin Beginning point of line
+    * @param beginPoint Beginning point of line
     * @param through Point ot continue through
     * @param length Length to extend along axis
     */
-  class Through(override var begin: Point[Double], through: Point[Double], length: Double = 0) extends Ray(begin, through) {
-    override var end: Point[Double] = through
+  class Through(beginPoint: Point[Double], through: Point[Double], length: Double = 0) extends Ray(beginPoint, through) {
+    end = through
     if(length == 0) extend()
     else extend(length)
   }
@@ -55,12 +72,12 @@ object Ray {
   /** Ray constructed of two point that extends another dotted line
     *
     * @constructor Beginning and ending point and direction of dotted line
-    * @param begin Beginning point of line
-    * @param end Ending point of line
+    * @param beginPoint Beginning point of line
+    * @param endPoint Ending point of line
     * @param dotLoc Direction to continue dotted line
     *               From the beginning, end, or both ways
     */
-  class DottedRay(override var begin: Point[Double], override var end: Point[Double], dotLoc: DotLoc.Value) extends Ray(begin, end) {
+  class DottedRay(beginPoint: Point[Double], endPoint: Point[Double], dotLoc: DotLoc.Value) extends Ray(beginPoint, endPoint) {
 
     var dottedBegin = begin
     var dottedEnd = end

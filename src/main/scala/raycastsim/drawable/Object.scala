@@ -14,34 +14,40 @@ import scala.swing.Graphics2D
   * for licensing information
   * https://github.com/Mnenmenth
   */
+
+/** Drawable object; Origin and refracted object
+  *
+  * @constructor Image to be drawn as object and lens type
+  * @param image Image drawn as object
+  * @param _lensType Type of lens
+  */
+
 class Object(image: BufferedImage, private var _lensType: Lens.Type.Value) extends Drawable {
 
-  private var _top = Point(50.0, CoordSys.p2c(image.getHeight, SingleAxis.Y))
+  private var _top = Point(-50.0, CoordSys.p2c(image.getHeight, SingleAxis.Y))
   def top = _top
   def top_=(x: Double):Unit={
     _top = Point(x, CoordSys.p2c(image.getHeight, SingleAxis.Y))
     pos = x
   }
 
-  private var _pos = Point(50.0, 0.0)
+  private var _pos = Point(-50.0, 0.0)
   def pos = _pos
   def pos_=(x: Double):Unit={
     _pos = Point(x, 0.0)
     top = x
   }
 
-  val refraction = new Object(image, _lensType)
+  //val refraction = new Object(image, _lensType)
 
-  //Before and after lens
+  var ray1Before: Ray = new Ray.BeginEnd(Point(0.0,0.0), Point(0.0,0.0))
+  var ray1After: Ray = new Ray.BeginEnd(Point(0.0,0.0), Point(0.0,0.0))
 
-  var ray1Before: Ray = _
-  var ray1After: Ray = _
+  var ray2Before: Ray = new Ray.BeginEnd(Point(0.0,0.0), Point(0.0,0.0))
+  var ray2After: Ray = new Ray.BeginEnd(Point(0.0,0.0), Point(0.0,0.0))
 
-  var ray2Before: Ray = _
-  var ray2After: Ray = _
-
-  var ray3Before: Ray = _
-  var ray3After: Ray = _
+  var ray3Before: Ray = new Ray.BeginEnd(Point(0.0,0.0), Point(0.0,0.0))
+  var ray3After: Ray = new Ray.BeginEnd(Point(0.0,0.0), Point(0.0,0.0))
 
   val rays = List(ray1Before, ray1After, ray2Before, ray2After, ray3Before, ray3After)
 
@@ -68,7 +74,13 @@ class Object(image: BufferedImage, private var _lensType: Lens.Type.Value) exten
   def calculateRefraction(lens: Lens.Type.Value): Unit ={
 
     if (lens == Lens.Type.CONVERGING) {
-
+      ray1Before.begin = Point(pos.x, pos.y)
+      ray1Before.end = Point(0.0, pos.y)
+      ray1After.begin = Point(0.0, pos.y)
+      import raycastsim.core.RayCastSim.contentPane
+      val graph = contentPane.renderPane.graph
+      ray1After.end = Point(graph.farF.pos.x, graph.farF.pos.y)
+      ray1After.extend()
     } else if (lens == Lens.Type.DIVERGING) {
 
     }
@@ -77,8 +89,8 @@ class Object(image: BufferedImage, private var _lensType: Lens.Type.Value) exten
 
   override def draw(g: Graphics2D): Unit = {
     rays.foreach(_.draw(g))
-    val pos = CoordSys.c2p(pos)
-    g.drawImage(image, pos.x.toInt, pos.y.toInt, image.getWidth(), image.getHeight(), null)
+    val pos = CoordSys.c2p(this.pos)
+    g.drawImage(image, pos.x, pos.y, image.getWidth(), image.getHeight(), null)
   }
 
 }

@@ -25,10 +25,13 @@ object CoordSys {
 
   /**
     * Drawable axis for graph
-    * @param begin Beginning point of line
-    * @param end Ending point of line
+    * @param beginPoint Beginning point of line
+    * @param endPoint Ending point of line
     */
-  class Axis(var begin: Point[Double], var end: Point[Double]) extends Line
+  class Axis(beginPoint: Point[Double], endPoint: Point[Double]) extends Line {
+    begin = beginPoint
+    end = endPoint
+  }
 
   object SingleAxis extends Enumeration {
     val X, Y = Value

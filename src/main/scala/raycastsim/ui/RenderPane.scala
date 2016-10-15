@@ -1,11 +1,13 @@
 package raycastsim.ui
 
 import java.awt.MouseInfo
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
 
 import raycastsim.core.RayCastSim
 import raycastsim.drawable.CoordSys.{FocalPoint, SingleAxis}
 import raycastsim.drawable.Ray.DottedRay.DotLoc
-import raycastsim.drawable.{CoordSys, Ray}
+import raycastsim.drawable.{CoordSys, Lens, Object, Ray}
 import raycastsim.math.Math.Point
 
 import scala.swing.{Graphics2D, Panel}
@@ -80,6 +82,9 @@ class RenderPane extends Panel {
   val circ2 = new FocalPoint(ray5.intersection(ray6), 10)
   val circ3 = new FocalPoint(ray7.intersection(ray8), 10)
 
+  val img = ImageIO.read(getClass.getClassLoader.getResourceAsStream("object.png"))
+  val origin = new Object(img, Lens.Type.CONVERGING)
+
   override def paint(g: Graphics2D): Unit = {
     super.paint(g)
     val mousePos = MouseInfo.getPointerInfo.getLocation
@@ -89,6 +94,7 @@ class RenderPane extends Panel {
     graph.draw(g)
     rayT.draw(g)
     ray7.draw(g)
+    //origin.draw(g)
     /*ray1.draw(g)
     ray2.draw(g)
     ray3.draw(g)
