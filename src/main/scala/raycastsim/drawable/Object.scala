@@ -2,9 +2,9 @@ package raycastsim.drawable
 
 import java.awt.image.BufferedImage
 
-import raycastsim.drawable.CoordSys.SingleAxis
+import raycastsim.drawable.CoordSys.FocalPoint
 import raycastsim.drawable.Ray.DottedRay.DotLoc
-import raycastsim.math.Math.Point
+import raycastsim.math.Math.{Point, converg, diverg}
 
 import scala.swing.Graphics2D
 
@@ -83,11 +83,9 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
       ray2Before.begin = Point(top.x, top.y)
       ray2Before.end = Point(graph.nearF.pos.x, graph.nearF.pos.y)
       ray2Before.extend()
-      println(ray2Before.end)
-      val intersection = ray2Before.intersection(graph.yAxis)
-      println(intersection)
-      ray2After.begin = Point(0.0, intersection.y)
-      ray2After.end = Point(20.0, intersection.y)
+
+      ray2After.begin = Point(0.0, ray2Before.b)
+      ray2After.end = Point(20.0, ray2Before.b)
       //ray2After.extend()
 
       /*ray3Before.begin = Point(top.x, top.y)
@@ -101,8 +99,11 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
 
   }
 
+  val c = new FocalPoint(converg(top, graph.nearF.pos.x*(-1)), 20)
+
   override def draw(g: Graphics2D): Unit = {
     //rays.foreach(_.draw(g))
+    c.draw(g)
     ray1Before.draw(g)
     ray1After.draw(g)
 
