@@ -14,42 +14,16 @@ import scala.swing.Graphics2D
   * for licensing information
   * https://github.com/Mnenmenth
   */
-/** Standard Ray
+
+/** Ray constructed using two points
   *
   * @constructor Beginning and Ending points of line
   * @param beginPoint Beginning point of line
-  * @param endPoint Ending point of line
+  * @param endPoint point of line
   */
-abstract class Ray(beginPoint: Point[Double], endPoint: Point[Double]) extends Line {
-  private var _begin: Point[Double] = beginPoint
-  override def begin_=(p: Point[Double])={
-    _begin = p
-    val beginConv = CoordSys.c2p(p)
-    val endConv = CoordSys.c2p(end)
-    line.setLine(beginConv.x, beginConv.y, endConv.x, endConv.y)
-  }
-
-  private var _end: Point[Double] = endPoint
-  override def end_=(p: Point[Double])={
-    _end = p
-    val beginConv = CoordSys.c2p(begin)
-    val endConv = CoordSys.c2p(p)
-    line.setLine(beginConv.x, beginConv.y, endConv.x, endConv.y)
-  }
-
-}
+class Ray(beginPoint: Point[Double], endPoint: Point[Double]) extends Line
 
 object Ray {
-
-  /** Ray constructed using two points
-    *
-    * @constructor Beginning and Ending points of line
-    * @param beginPoint Beginning point of line
-    * @param endPoint point of line
-    */
-  class BeginEnd(beginPoint: Point[Double], endPoint: Point[Double]) extends Ray(beginPoint, endPoint) {
-    println(begin)
-  }
 
   /** Ray extended through point
     *

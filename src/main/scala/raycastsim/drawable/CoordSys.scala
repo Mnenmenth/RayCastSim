@@ -37,6 +37,8 @@ object CoordSys {
     val X, Y = Value
   }
 
+  val oneCoord = RayCastSim.windowSize.height/200
+
   //Y Axis has to be minus rather than double since everything is drawn from top left -> down instead of bottom left -> up
   //Coordinate to pixel
   /**
@@ -101,8 +103,8 @@ object CoordSys {
   */
 class CoordSys(windowSize: Dimension) extends Drawable {
 
-  val yAxis = new Axis(Point[Double](0, -100), Point[Double](0, 100))
-  val xAxis = new Axis(Point[Double](-100, 0), Point[Double](100, 0))
+  val yAxis = new Axis(Point(0.0, -100.0), Point(0.0, 100.0))
+  val xAxis = new Axis(Point(-100.0, 0.0), Point(100.0, 0.0))
 
   val fDiameter = 10
 

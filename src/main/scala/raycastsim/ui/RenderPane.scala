@@ -25,30 +25,30 @@ class RenderPane extends Panel {
 
   val graph = new CoordSys(RayCastSim.windowSize)
 
-  val ray1 = new Ray.BeginEnd(
+  val ray1 = new Ray(
     Point[Double](40, 30),
     Point[Double](80, 60)
   )
-  val ray2 = new Ray.BeginEnd(
+  val ray2 = new Ray(
     Point[Double](61, 31),
     Point[Double](41, 81)
   )
 
-  val ray3 = new Ray.BeginEnd(
+  val ray3 = new Ray(
     Point[Double](-40, 30),
     Point[Double](-80, 60)
   )
-  val ray4 = new Ray.BeginEnd(
+  val ray4 = new Ray(
     Point[Double](-61, 31),
     Point[Double](-41, 81)
   )
 
-  val ray5 = new Ray.BeginEnd(
+  val ray5 = new Ray(
     Point[Double](-40, -30),
     Point[Double](-80, -60)
   )
 
-  val ray6 = new Ray.BeginEnd(
+  val ray6 = new Ray(
     Point[Double](-61, -31),
     Point[Double](-41, -81)
   )
@@ -59,7 +59,7 @@ class RenderPane extends Panel {
     DotLoc.BOTH
   )
 
-  val ray8 = new Ray.BeginEnd(
+  val ray8 = new Ray(
     Point[Double](61, -31),
     Point[Double](41, -81)
   )

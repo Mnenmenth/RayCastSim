@@ -30,7 +30,7 @@ trait Line extends Drawable {
     _begin = p
     val beginConv = CoordSys.c2p(begin)
     val endConv = CoordSys.c2p(end)
-    line = new Line2D.Double(beginConv.x, beginConv.y, endConv.x, endConv.y)
+    line.setLine(beginConv.x, beginConv.y, endConv.x, endConv.y)
   }
 
   private var _end: Point[Double] = Point(0.0, 0.0)
@@ -39,10 +39,10 @@ trait Line extends Drawable {
     _end = p
     val beginConv = CoordSys.c2p(begin)
     val endConv = CoordSys.c2p(end)
-    line = new Line2D.Double(beginConv.x, beginConv.y, endConv.x, endConv.y)
+    line.setLine(beginConv.x, beginConv.y, endConv.x, endConv.y)
   }
 
-  var line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
+  val line = new Line2D.Double(CoordSys.c2p(begin.x, SingleAxis.X), CoordSys.c2p(begin.y, SingleAxis.Y), CoordSys.c2p(end.x, SingleAxis.X), CoordSys.c2p(end.y, SingleAxis.Y))
 
   def m = (begin.y - end.y) / (begin.x - end.x)
   def b = begin.y - (m*begin.x)
@@ -55,7 +55,7 @@ trait Line extends Drawable {
   def intersection(line: Line): Point[Double] = {
     val x = (line.b - b) / (m - line.m)
     val y = m * x + b
-    Point[Double](x, y)
+    Point(x, y)
   }
 
   /**
@@ -64,7 +64,7 @@ trait Line extends Drawable {
     *             @example add 1 to x
     * @param length Length to add to axis
    */
-  def extendAlong(axis: SingleAxis.Value, length: Double = 150.0): Unit = {
+  def extendAlong(axis: SingleAxis.Value, length: Double = 283): Unit = {
     val m = this.m
     val b = this.b
     var end1 = Point(0.0,0.0)
@@ -87,9 +87,10 @@ trait Line extends Drawable {
       val sign = (end.y - begin.y)/math.abs(end.y - begin.y)
       end1 = Point(end.y + sign * length, (end.y-b)/m)
     }
-    val newBegin = CoordSys.c2p(begin)
+    /*val newBegin = CoordSys.c2p(begin)
     val newEnd = CoordSys.c2p(end1)
-    line = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)
+    line = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)*/
+    end = end1
   }
 
   /**
@@ -101,14 +102,17 @@ trait Line extends Drawable {
     *
     * @param l the length to be added; l != 0, if it does, the universe will implode.
     */
-  def extend(l: Double = 150.0): Unit = {
+  def extend(l: Double = 283): Unit = {
     val dx = math.sqrt((l*l)/(m*m+1))
     val dy = m*dx
     val p = Point(dx,dy)
-    import CoordSys.c2p
+    /*import CoordSys.c2p
     val begin1 = c2p(if(l>0) begin else begin - p)
     val end1 = c2p(if(l>0) p + end else end)
-    line = new Line2D.Double(begin1.x,begin1.y,end1.x,end1.y)
+    line = new Line2D.Double(begin1.x,begin1.y,end1.x,end1.y)*/
+    begin = if(l>0) begin else begin - p
+    end = if(l>0) p + end else end
+
   }
 
   /**
