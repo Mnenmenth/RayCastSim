@@ -28,18 +28,19 @@ object Math {
 
   /**
     * Calculates point of ray intersection through converging lens
-    * @param pos Origin point
+    * @param _pos Origin point
     * @param f Focal length
     * @return Point of intersection
     */
-  def converg(pos:Point[Double], f:Double):Point[Double]={
+  def converg[T](_pos:Point[T], f:Double):Point[Double]={
+    val pos = _pos.toDouble
     //gets the focal point on the side of the source
-    val g = f * pos.x / abs(pos.x)
+    val g = -f * pos.x / abs(pos.x)
     //sets the position to nice values
-    val l = pos.y
+    val l = pos.x
     val h = pos.y
     //finds point
-    val x = g*l/(g-l)
+    val x = g*l/(g+l)
     val y = (h/l)*x
     //returns point
     Point(x,y)
@@ -47,11 +48,12 @@ object Math {
 
   /**
     * Calculates point of ray intersection through diverging lens
-    * @param pos Origin point
+    * @param _pos Origin point
     * @param f Focal length
     * @return Point of intersection
     */
-  def diverg(pos:Point[Double], f:Double):Point[Double]={
+  def diverg[T](_pos:Point[T], f:Double):Point[Double]={
+    val pos = _pos.toDouble
     //gets the focal point on the side of the source
     val g = f * pos.x / abs(pos.y)
     //sets the position to nice values
