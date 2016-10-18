@@ -10,6 +10,7 @@ import raycastsim.drawable.Ray.DottedRay.DotLoc
 import raycastsim.drawable.{CoordSys, Lens, Object, Ray}
 import raycastsim.math.Math.Point
 
+import scala.swing.event.{MouseClicked, MouseDragged}
 import scala.swing.{Graphics2D, Panel}
 
 /**
@@ -28,6 +29,16 @@ class RenderPane extends Panel {
   val img = ImageIO.read(getClass.getClassLoader.getResourceAsStream("object.png"))
   val origin = new Object(img, graph, Lens.Type.CONVERGING)
   origin.calculateRefraction()
+
+  listenTo(mouse.moves)
+  reactions += {
+    case MouseDragged(_, point, _) =>
+      if (point.x > 0 && point.x < RayCastSim.windowSize.width/2) {
+        origin.pos = CoordSys.p2c(point.x, SingleAxis.X)
+        origin.calculateRefraction()
+        println(point.x)
+      }
+  }
 
   override def paint(g: Graphics2D): Unit = {
     super.paint(g)
