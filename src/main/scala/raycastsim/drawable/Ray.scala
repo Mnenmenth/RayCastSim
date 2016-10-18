@@ -1,7 +1,8 @@
 package raycastsim.drawable
 
-import java.awt.BasicStroke
-import java.awt.geom.Line2D
+import java.awt.{BasicStroke, Polygon}
+import java.awt.geom.{AffineTransform, Line2D}
+
 import raycastsim.math.Math._
 import raycastsim.drawable.CoordSys.SingleAxis
 import raycastsim.drawable.Ray.DottedRay.DotLoc
@@ -21,7 +22,14 @@ import scala.swing.Graphics2D
   * @param beginPoint Beginning point of line
   * @param endPoint point of line
   */
-class Ray(beginPoint: Point[Double], endPoint: Point[Double]) extends Line
+class Ray(beginPoint: Point[Double], endPoint: Point[Double]) extends Line {
+  var arrowHead = new Polygon()
+
+  override def draw(g: Graphics2D): Unit = {
+    g.draw(line)
+  }
+
+}
 
 object Ray {
 

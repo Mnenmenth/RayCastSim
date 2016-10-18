@@ -81,7 +81,7 @@ class RenderPane extends Panel {
   val circ1 = new FocalPoint(ray3.intersection(ray4), 10)
   val circ2 = new FocalPoint(ray5.intersection(ray6), 10)
   val circ3 = new FocalPoint(ray7.intersection(ray8), 10)
-  val circdusoleil = new FocalPoint(raycastsim.math.Math.diverg(Point(-50,20), 25), 30)
+  //val circdusoleil = new FocalPoint(raycastsim.math.Math.diverg(Point(-50,20), 25), 30)
 
   val img = ImageIO.read(getClass.getClassLoader.getResourceAsStream("object.png"))
   val origin = new Object(img, graph, Lens.Type.CONVERGING)
@@ -97,7 +97,7 @@ class RenderPane extends Panel {
     //rayT.draw(g)
     //ray7.draw(g)
     origin.draw(g)
-    circdusoleil.draw(g)
+    //circdusoleil.draw(g)
     /*ray1.draw(g)
     ray2.draw(g)
     ray3.draw(g)
