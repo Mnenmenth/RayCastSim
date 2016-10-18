@@ -75,7 +75,7 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
 
     if (lensType == Lens.Type.CONVERGING) {
 
-      val f = if (pos.x < graph.nearF.pos.x) graph.nearF else graph.nearF2
+      val f = graph.nearF//if (pos.x < graph.nearF.pos.x) graph.nearF else graph.nearF2
 
       val refractionPos = converg[Double](top, f.pos.x * -1)
 

@@ -33,7 +33,7 @@ class RenderPane extends Panel {
   listenTo(mouse.moves)
   reactions += {
     case MouseDragged(_, point, _) =>
-      if (point.x > 0 && point.x < RayCastSim.windowSize.width/2) {
+      if (point.x > 0 && point.x < CoordSys.c2p(graph.nearF.pos.x, SingleAxis.X)) {
         origin.pos = CoordSys.p2c(point.x, SingleAxis.X)
         origin.calculateRefraction()
         println(point.x)
