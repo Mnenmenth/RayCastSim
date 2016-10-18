@@ -69,27 +69,12 @@ trait Line extends Drawable {
     val b = this.b
     var end1 = Point(0.0,0.0)
     if(axis == SingleAxis.X) {
-      //returns + if begin > end - if begin < end
       val sign = (end.x - begin.x)/math.abs(end.x - begin.x)
-      /*if (begin.x > end.x) {
-        end.x = end.x + sign * length
-      } else if (begin.x < end.x) {
-        end.x = end.x + length
-      }*/
       end1 = Point(end.x + sign * length, m * end.x + b)
     } else if (axis == SingleAxis.Y){
-      /*if (begin.y > end.y) {
-        end.y = end.y - length
-      } else if (begin.y < end.y) {
-        end.y = end.y + length
-      }*/
-      //returns + if begin > end - if begin < end
       val sign = (end.y - begin.y)/math.abs(end.y - begin.y)
       end1 = Point(end.y + sign * length, (end.y-b)/m)
     }
-    /*val newBegin = CoordSys.c2p(begin)
-    val newEnd = CoordSys.c2p(end1)
-    line = new Line2D.Double(newBegin.x, newBegin.y, newEnd.x, newEnd.y)*/
     end = end1
   }
 
@@ -106,10 +91,6 @@ trait Line extends Drawable {
     val dx = math.sqrt((l*l)/(m*m+1))
     val dy = m*dx
     val p = Point(dx,dy)
-    /*import CoordSys.c2p
-    val begin1 = c2p(if(l>0) begin else begin - p)
-    val end1 = c2p(if(l>0) p + end else end)
-    line = new Line2D.Double(begin1.x,begin1.y,end1.x,end1.y)*/
     begin = if(l>0) begin else begin - p
     end = if(l>0) p + end else end
 
