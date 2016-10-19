@@ -70,7 +70,7 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
   }
 
   lensType = _lensType
-
+  val test = new FocalPoint(Point(0.0, 0.0), 10)
   def calculateRefraction(): Unit = {
 
     if (lensType == Lens.Type.CONVERGING) {
@@ -78,26 +78,26 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
       val f = if (pos.x < 0) graph.nearF else graph.farF
 
       val refractionPos = converg[Double](top, if(pos.x < 0) -f.pos.x else f.pos.x)
-
+      test.pos = refractionPos
       val toExtend = 20.0
 
       ray1Before.begin = Point(top.x, top.y)
       ray1Before.end = Point(0.0, top.y)
       ray1After.begin = Point(0.0, top.y)
       ray1After.end = refractionPos
-      ray1After.extend(toExtend)
+      //ray1After.extend(toExtend)
 
       ray2Before.begin = Point(top.x, top.y)
       ray2Before.end = Point(0.0, refractionPos.y)
       ray2After.begin = Point(0.0, refractionPos.y)
-      ray2After.end = Point(refractionPos.x, refractionPos.y)
-      ray2After.extend(toExtend)
+      ray2After.end = refractionPos
+      //ray2After.extend(toExtend)
 
       ray3Before.begin = Point(top.x, top.y)
       ray3Before.end = Point(0.0, 0.0)
       ray3After.begin = Point(0.0, 0.0)
-      ray3After.end = Point(refractionPos.x, refractionPos.y)
-      ray3After.extend(toExtend)
+      ray3After.end = refractionPos
+      //ray3After.extend(toExtend)
 
     } else if (lensType == Lens.Type.DIVERGING) {
 
@@ -118,6 +118,7 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
 
     val pos = CoordSys.c2p(this.pos)
     g.drawImage(image, pos.x, pos.y, image.getWidth(), -top.y.toInt*CoordSys.oneCoord, null)
+    test.draw(g)
   }
 
 }

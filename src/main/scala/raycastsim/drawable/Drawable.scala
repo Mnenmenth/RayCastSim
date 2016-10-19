@@ -93,7 +93,6 @@ trait Line extends Drawable {
     val p = Point(dx,dy)
     begin = if(l>0) begin else begin - p
     end = if(l>0) p + end else end
-
   }
 
   /**
@@ -112,8 +111,21 @@ trait Line extends Drawable {
   * Circle generic
   */
 trait Circle extends Drawable {
-  var pos: Point[Double]
-  var diameter: Int
+  private var _pos: Point[Double] = Point(0.0, 0.0)
+  def pos = _pos
+  def pos_=(p: Point[Double])={
+    _pos = p
+    circle.x = CoordSys.c2p(pos.x, SingleAxis.X)-(diameter/2)
+    circle.y = CoordSys.c2p(pos.y, SingleAxis.Y)-(diameter/2)
+  }
+  private var _diameter: Int = 0
+  def diameter = _diameter
+  def diameter_=(d: Int)={
+    _diameter = d
+    circle.height = d
+    circle.width = d
+  }
+
   val circle = new Ellipse2D.Double(CoordSys.c2p(pos.x, SingleAxis.X)-(diameter/2), CoordSys.c2p(pos.y, SingleAxis.Y)-(diameter/2), diameter, diameter)
   override def draw(g: Graphics2D) = {
     g.fill(circle)

@@ -18,10 +18,13 @@ object CoordSys {
 
   /**
     * Drawable focal point on graph
-    * @param pos Position to draw focal point
-    * @param diameter Diameter of circle
+    * @param position Position to draw focal point
+    * @param _diameter Diameter of circle
     */
-  class FocalPoint(var pos: Point[Double], var diameter: Int) extends Circle
+  class FocalPoint(position: Point[Double], _diameter: Int) extends Circle {
+    pos = position
+    diameter = _diameter
+  }
 
   /**
     * Drawable axis for graph
