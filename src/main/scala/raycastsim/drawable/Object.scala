@@ -75,9 +75,9 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
 
     if (lensType == Lens.Type.CONVERGING) {
 
-      val f = graph.nearF//if (pos.x < graph.nearF.pos.x) graph.nearF else graph.nearF2
+      val f = if (pos.x < 0) graph.nearF else graph.farF
 
-      val refractionPos = converg[Double](top, f.pos.x * -1)
+      val refractionPos = converg[Double](top, if(pos.x < 0) -f.pos.x else f.pos.x)
 
       val toExtend = 20.0
 
