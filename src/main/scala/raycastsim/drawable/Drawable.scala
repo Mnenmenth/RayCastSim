@@ -124,6 +124,8 @@ trait Circle extends Drawable {
     _diameter = d
     circle.height = d
     circle.width = d
+    circle.x = CoordSys.c2p(pos.x, SingleAxis.X)-(diameter/2)
+    circle.y = CoordSys.c2p(pos.y, SingleAxis.Y)-(diameter/2)
   }
 
   val circle = new Ellipse2D.Double(CoordSys.c2p(pos.x, SingleAxis.X)-(diameter/2), CoordSys.c2p(pos.y, SingleAxis.Y)-(diameter/2), diameter, diameter)
