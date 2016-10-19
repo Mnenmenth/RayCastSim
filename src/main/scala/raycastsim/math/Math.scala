@@ -24,6 +24,7 @@ object Math {
     def toDouble: Point[Double] = Point(numT.toDouble(x), numT.toDouble(y))
     def toFloat: Point[Float] = Point(numT.toFloat(x), numT.toFloat(y))
     def toLong: Point[Float] = Point(numT.toLong(x), numT.toLong(y))
+    override def toString = s"($x,$y)"
   }
 
   /**

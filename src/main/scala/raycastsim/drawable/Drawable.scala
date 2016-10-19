@@ -88,11 +88,13 @@ trait Line extends Drawable {
     * @param l the length to be added; l != 0, if it does, the universe will implode.
     */
   def extend(l: Double = 283): Unit = {
+    val begin1 = if (begin.x < end.x) begin else end
+    val end1   = if (end.x >= begin.x) end else begin
     val dx = math.sqrt((l*l)/(m*m+1))
     val dy = m*dx
     val p = Point(dx,dy)
-    begin = if(l>0) begin else begin - p
-    end = if(l>0) p + end else end
+    begin = if(l>0) begin1   else begin1 - p
+    end   = if(l>0) p + end1 else end1
   }
 
   /**
