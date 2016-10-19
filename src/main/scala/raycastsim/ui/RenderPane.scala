@@ -33,11 +33,8 @@ class RenderPane extends Panel {
   listenTo(mouse.moves)
   reactions += {
     case MouseDragged(_, point, _) =>
-      if (point.x > 0 && point.x < CoordSys.c2p(graph.nearF.pos.x, SingleAxis.X)) {
-        origin.pos = CoordSys.p2c(point.x, SingleAxis.X)
-        origin.calculateRefraction()
-        println(point.x)
-      }
+      origin.top = Point(CoordSys.p2c(point.x, SingleAxis.X), CoordSys.p2c(point.y, SingleAxis.Y))
+      origin.calculateRefraction()
   }
 
   override def paint(g: Graphics2D): Unit = {

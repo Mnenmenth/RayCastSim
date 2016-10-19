@@ -2,7 +2,7 @@ package raycastsim.drawable
 
 import java.awt.image.BufferedImage
 
-import raycastsim.drawable.CoordSys.FocalPoint
+import raycastsim.drawable.CoordSys.{FocalPoint, SingleAxis}
 import raycastsim.drawable.Ray.DottedRay.DotLoc
 import raycastsim.math.Math.{Point, converg, diverg}
 
@@ -26,15 +26,15 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
 
   private var _top: Point[Double] = Point(-50.0, image.getHeight())
   def top: Point[Double] = _top
-  def top_=(x: Double):Unit={
-    _top = Point(x, image.getHeight())
-    _pos = Point(x, _pos.y)
+  def top_=(p: Point[Double]):Unit={
+    _top = Point(p.x, p.y)
+    _pos = Point(p.x, _pos.y)
   }
 
   private var _pos: Point[Double] = Point(-50.0, 0.0)
   def pos: Point[Double] = _pos
   def pos_=(x: Double):Unit={
-    _pos = Point(x, 0.0)
+    _pos = Point(x, _pos.y)
     _top = Point(x, _top.y)
   }
 
@@ -117,7 +117,7 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
     ray3After.draw(g)
 
     val pos = CoordSys.c2p(this.pos)
-    g.drawImage(image, pos.x, pos.y, image.getWidth(), -image.getHeight()*CoordSys.oneCoord, null)
+    g.drawImage(image, pos.x, pos.y, image.getWidth(), -top.y.toInt*CoordSys.oneCoord, null)
   }
 
 }
