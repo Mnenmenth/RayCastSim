@@ -85,9 +85,10 @@ trait Line extends Drawable {
     * and dy = m dx
     * So dx = +- sqrt(l^2/(m^2 +1))
     *
-    * @param l the length to be added; l != 0, if it does, the universe will implode.
+    * @param l0 the length to be added; l != 0, if it does, the universe will implode.
     */
-  def extend(l: Double = 283): Unit = {
+  def extend(l0: Double = 283): Unit = {
+    val l     = if (begin.x < end.x) l0 else -l0
     val begin1 = if (begin.x < end.x) begin else end
     val end1   = if (end.x >= begin.x) end else begin
     val dx = math.sqrt((l*l)/(m*m+1))
