@@ -1,10 +1,11 @@
 package raycastsim.drawable
 
-import java.awt.Dimension
+import java.awt.{Color, Dimension}
 
 import raycastsim.core.RayCastSim
 import raycastsim.drawable.CoordSys.{Axis, FocalPoint}
 import raycastsim.math.Math._
+
 import scala.swing.Graphics2D
 
 /**
@@ -125,9 +126,12 @@ class CoordSys(windowSize: Dimension) extends Drawable {
   val focalPoints: List[FocalPoint] = List(nearF, nearF2, farF, farF2)
 
   override def draw(g: Graphics2D): Unit = {
-    yAxis.draw(g)
-    xAxis.draw(g)
-    focalPoints.foreach(f=>f.draw(g))
+    val g2 = g.create().asInstanceOf[Graphics2D]
+    g2.setColor(Color.DARK_GRAY)
+    yAxis.draw(g2)
+    xAxis.draw(g2)
+    focalPoints.foreach(f=>f.draw(g2))
+    g2.dispose()
   }
 
 }

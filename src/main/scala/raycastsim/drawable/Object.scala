@@ -1,5 +1,6 @@
 package raycastsim.drawable
 
+import java.awt.Color
 import java.awt.image.BufferedImage
 
 import raycastsim.drawable.CoordSys.{FocalPoint, SingleAxis}
@@ -37,8 +38,8 @@ class Object(image:BufferedImage) extends Drawable {
   }
 
   override def draw(g: Graphics2D): Unit = {
-    val pos = CoordSys.c2p(this.pos)
-    g.drawImage(image, pos.x, pos.y, image.getWidth(), -top.y.toInt*CoordSys.oneCoord, null)
+    val origin = CoordSys.c2p(this.top)
+    g.drawImage(image, origin.x, origin.y, image.getWidth(), top.y.toInt*CoordSys.oneCoord, null)
   }
 
 }
@@ -121,17 +122,27 @@ class Origin(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
 
 
   override def draw(g: Graphics2D): Unit = {
-    ray1Before.draw(g)
-    ray1After.draw(g)
+    val ray1 = g.create().asInstanceOf[Graphics2D]
+    ray1.setColor(Color.RED)
+    ray1Before.draw(ray1)
+    ray1After.draw(ray1)
+    ray1.dispose()
 
-    ray2Before.draw(g)
-    ray2After.draw(g)
+    val ray2 = g.create().asInstanceOf[Graphics2D]
+    ray2.setColor(Color.GREEN)
+    ray2Before.draw(ray2)
+    ray2After.draw(ray2)
+    ray2.dispose()
 
-    ray3Before.draw(g)
-    ray3After.draw(g)
+    val ray3 = g.create().asInstanceOf[Graphics2D]
+    ray3.setColor(Color.BLUE)
+    ray3Before.draw(ray3)
+    ray3After.draw(ray3)
+    ray3.dispose()
 
-    val origin = CoordSys.c2p(this.pos)
-    g.drawImage(image, origin.x, origin.y, image.getWidth(), -top.y.toInt*CoordSys.oneCoord, null)
+    val origin = CoordSys.c2p(this.top)
+    g.drawImage(image, origin.x, origin.y, image.getWidth(), top.y.toInt*CoordSys.oneCoord, null)
+    //g.drawImage
 
     refraction.draw(g)
   }

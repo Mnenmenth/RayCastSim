@@ -1,6 +1,6 @@
 package raycastsim.ui
 
-import java.awt.MouseInfo
+import java.awt.{Color, MouseInfo}
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 
@@ -23,7 +23,7 @@ import scala.swing.{Graphics2D, Panel}
   * Panel containing all draw commands
   */
 class RenderPane extends Panel {
-
+  background = Color.BLACK
   val graph = new CoordSys(RayCastSim.windowSize)
 
   val img = ImageIO.read(getClass.getClassLoader.getResourceAsStream("object.png"))
@@ -39,6 +39,7 @@ class RenderPane extends Panel {
 
   override def paint(g: Graphics2D): Unit = {
     super.paint(g)
+
     val mousePos = MouseInfo.getPointerInfo.getLocation
     g.drawString(s"Screen - X: ${mousePos.x}, Y: ${mousePos.y}", 10, 10)
     g.drawString(s"Cartesian - X: ${"%.2f".format(CoordSys.p2c(mousePos.x, SingleAxis.X))}, " +
