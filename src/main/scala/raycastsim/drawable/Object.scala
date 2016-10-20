@@ -15,15 +15,13 @@ import scala.swing.Graphics2D
   * https://github.com/Mnenmenth
   */
 
-/** Drawable object; Origin and refracted object
+/** Drawable object
   *
-  * @constructor Image to be drawn as object and lens type
+  * @constructor Image to be drawn as object
   * @param image Image drawn as object
-  * @param _lensType Type of lens
   */
 
-class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.Type.Value) extends Drawable {
-
+class Object(image:BufferedImage) extends Drawable {
   private var _top: Point[Double] = Point(-50.0, image.getHeight())
   def top: Point[Double] = _top
   def top_=(p: Point[Double]):Unit={
@@ -38,7 +36,23 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
     _top = Point(x, _top.y)
   }
 
-  //val refraction = new Object(image, _lensType)
+  override def draw(g: Graphics2D): Unit = {
+    val pos = CoordSys.c2p(this.pos)
+    g.drawImage(image, pos.x, pos.y, image.getWidth(), -top.y.toInt*CoordSys.oneCoord, null)
+  }
+
+}
+
+/** Drawable object; Origin and refracted object
+  *
+  * @constructor Image to be drawn as object and lens type
+  * @param image Image drawn as object
+  * @param _lensType Type of lens
+  */
+
+class Origin(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.Type.Value) extends Object(image) {
+
+  val refraction = new Object(image)
 
   var ray1Before: Ray = new Ray(Point(0.0,0.0), Point(0.0,0.0))
   var ray1After: Ray = new Ray(Point(0.0,0.0), Point(0.0,0.0))
@@ -70,7 +84,6 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
   }
 
   lensType = _lensType
-  val test = new FocalPoint(Point(0.0, 0.0), 10)
   def calculateRefraction(): Unit = {
 
     if (lensType == Lens.Type.CONVERGING) {
@@ -78,7 +91,6 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
       val f = if (pos.x < 0) graph.nearF else graph.farF
 
       val refractionPos = converg[Double](top, if(pos.x < 0) -f.pos.x else f.pos.x)
-      test.pos = refractionPos
       val toExtend = 100
 
       ray1Before.begin = Point(top.x, top.y)
@@ -99,6 +111,8 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
       ray3After.end = refractionPos
       ray3After.extend(toExtend)
 
+      refraction.top = refractionPos
+
     } else if (lensType == Lens.Type.DIVERGING) {
 
     }
@@ -116,9 +130,10 @@ class Object(image: BufferedImage, graph: CoordSys, private var _lensType: Lens.
     ray3Before.draw(g)
     ray3After.draw(g)
 
-    val pos = CoordSys.c2p(this.pos)
-    g.drawImage(image, pos.x, pos.y, image.getWidth(), -top.y.toInt*CoordSys.oneCoord, null)
-    test.draw(g)
+    val origin = CoordSys.c2p(this.pos)
+    g.drawImage(image, origin.x, origin.y, image.getWidth(), -top.y.toInt*CoordSys.oneCoord, null)
+
+    refraction.draw(g)
   }
 
 }

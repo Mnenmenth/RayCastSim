@@ -7,7 +7,7 @@ import javax.imageio.ImageIO
 import raycastsim.core.RayCastSim
 import raycastsim.drawable.CoordSys.{FocalPoint, SingleAxis}
 import raycastsim.drawable.Ray.DottedRay.DotLoc
-import raycastsim.drawable.{CoordSys, Lens, Object, Ray}
+import raycastsim.drawable._
 import raycastsim.math.Math.Point
 
 import scala.swing.event.{MouseClicked, MouseDragged}
@@ -27,7 +27,7 @@ class RenderPane extends Panel {
   val graph = new CoordSys(RayCastSim.windowSize)
 
   val img = ImageIO.read(getClass.getClassLoader.getResourceAsStream("object.png"))
-  val origin = new Object(img, graph, Lens.Type.CONVERGING)
+  val origin = new Origin(img, graph, Lens.Type.CONVERGING)
   origin.calculateRefraction()
 
   listenTo(mouse.moves)
